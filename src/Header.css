@@ -1,3 +1,5 @@
+/* https://github.com/lxndroc/react-robinhood-clone */
+
 .header__wrapper {
   display: flex;
   align-items: center;
@@ -20,12 +22,12 @@
 }
 
 .header__searchContainer {
-  /* display: flex; */
-  /* align-items: center; */
   height: 20px;
-  border: 1px solid #31363A;
+  border: 1px solid #31363a;
   border-radius: 4px;
   width: 375px;
+  /* display: flex; */
+  /* align-items: center; */
   /* width: 100%; */
   /* padding: 5px; */
 }
@@ -63,9 +65,9 @@
 
 .header__menuItems a:hover,
 .header__menuItems a:active {
-  color: #5AC53B;
+  color: #5ac53b;
 }
 
 a:first-of-type {
-  color: #5AC53B;
+  color: #5ac53b;
 }

@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
-import './LineGraph.css'
+// https://github.com/lxndroc/react-robinhood-clone
 
-function LineGraph(/*{ casesType }*/) {
+import React, { useEffect, useState } from 'react';
+import { Line } from 'react-chartjs-2';
+import './LineGraph.css';
+
+function LineGraph() {
   const [graphData, setGraphData] = useState([]);
   const createMockData = () => {
     let data = [];
     let value = 50;
-    for(let i = 0; i < 366; i++) {
+    for (let i = 0; i < 366; i++) {
       let date = new Date();
-      date.setHours(0,0,0,0);
+      date.setHours(0, 0, 0, 0);
       date.setDate(i);
       value += Math.round((Math.random() < 0.5 ? 1 : 0) * Math.random() * 10);
-      data.push({x: date, y: value});
+      data.push({ x: date, y: value });
     }
     setGraphData(data);
-  }
+  };
 
   useEffect(() => {
     createMockData();
@@ -30,8 +32,8 @@ function LineGraph(/*{ casesType }*/) {
               {
                 type: 'line',
                 data: graphData,
-                backgroundColor: "black",
-                borderColor: "#5AC53B",
+                backgroundColor: 'black',
+                borderColor: '#5AC53B',
                 borderWidth: 2,
                 pointBorderColor: 'rgba(0, 0, 0, 0)',
                 pointBackgroundColor: 'rgba(0, 0, 0, 0)',
@@ -44,13 +46,11 @@ function LineGraph(/*{ casesType }*/) {
           }}
           options={{
             legend: {
-              display: false
+              display: false,
             },
             tooltips: {
-              mode: "index",
+              mode: 'index',
               intersect: false,
-              // callbacks: {
-              // },
             },
             maintainAspectRatio: false,
             // hover: {
@@ -67,14 +67,14 @@ function LineGraph(/*{ casesType }*/) {
             scales: {
               xAxes: [
                 {
-                  type: "time",
+                  type: 'time',
                   time: {
-                    format: "MM/DD/YY",
-                    tooltipFormat: "ll",
+                    format: 'MM/DD/YY',
+                    tooltipFormat: 'll',
                   },
                   ticks: {
                     display: false,
-                  }
+                  },
                 },
               ],
               yAxes: [
@@ -87,7 +87,7 @@ function LineGraph(/*{ casesType }*/) {
                   },
                 },
               ],
-            },          
+            },
           }}
         />
       )}

@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
-import "./Stats.css";
-import axios from "axios";
-import StatsRow from "./StatsRow";
-import { db } from "./firebase";
-// import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-// import { key } from "./api";
+// https://github.com/lxndroc/react-robinhood-clone
 
-// copy from finnhun.io 
-const BASE_URL = "https://finnhub.io/api/v1/quote";
-const TOKEN = "bv231kn48v6o5ed6qbqg"
+import React, { useState, useEffect } from 'react';
+import './Stats.css';
+import axios from 'axios';
+import StatsRow from './StatsRow';
+import { db } from './firebase';
+import { MoreHoriz } from '@material-ui/icons';
 
-// const KEY_URL = `&token=${key}`;
-const testData = []; 
+const BASE_URL = 'https://finnhub.io/api/v1/quote';
+// following value to be replaced from finnhun.io
+const TOKEN = 'bv231kn48v6o5ed6qbqg';
+const testData = [];
 
 function Stats() {
   const [stockData, setStockData] = useState([]);
@@ -22,85 +21,94 @@ function Stats() {
       let promises = [];
       let tempData = [];
       snapshot.docs.map(doc => {
-          // console.log(doc.data());
-          promises.push(getStocksData(doc.data().ticker)
-          .then(res => {
+        // console.log(doc.data());
+        promises.push(
+          getStocksData(doc.data().ticker).then(res => {
             tempData.push({
               id: doc.id,
               data: doc.data(),
-              info: res.data
-            })
+              info: res.data,
+            });
           })
-        )})
-        Promise.all(promises).then(()=>{
-          setMyStocks(tempData);
-        })
-    })
-  }
+        );
+      });
+      Promise.all(promises).then(() => {
+        setMyStocks(tempData);
+      });
+    });
+  };
 
-  const getStocksData = (stock) => {
+  const getStocksData = stock => {
     return axios
       .get(`${BASE_URL}?symbol=${stock}&token=${TOKEN}`)
-      .catch((error) => {
-        console.error("Error", error.message);
+      .catch(error => {
+        console.error('Error', error.message);
       });
   };
 
   useEffect(() => {
     let tempStocksData = [];
-    const stocksList = ["AAPL", "MSFT", "TSLA", "FB", "BABA", "UBER", "DIS", "SBUX"];
+    const stocksList = [
+      'AAPL',
+      'MSFT',
+      'TSLA',
+      'FB',
+      'BABA',
+      'UBER',
+      'DIS',
+      'SBUX',
+    ];
 
     // getMyStocks();
     let promises = [];
-    stocksList.map((stock) => {
+    stocksList.map(stock => {
       promises.push(
-        getStocksData(stock)
-        .then(res => {
+        getStocksData(stock).then(res => {
           console.log(res);
           tempStocksData.push({
-          // testData.push({
+            // testData.push({
             name: stock,
-            ...res.data
+            ...res.data,
           });
         })
-      )
+      );
     });
 
-    Promise.all(promises).then(()=>{
+    Promise.all(promises).then(() => {
       setStockData(tempStocksData);
       // setStockData(testData);
       console.log(testData);
-    })
+    });
   }, []);
 
   return (
-    <div className="stats">
-      <div className="stats__container">
-        <div className="stats__header">
+    <div className='stats'>
+      <div className='stats__container'>
+        <div className='stats__header'>
           <p>Stocks</p>
-          <MoreHorizIcon />
+          <MoreHoriz />
         </div>
-        <div className="stats__content">
-          <div className="stats__rows">
-            {/* current stocks */}
-            {stockData.map(stock => (
+        <div className='stats__content'>
+          <div className='stats__rows'>
+            {/* our current stocks */}
+            {myStocks.map(stock => (
               <StatsRow
                 key={stock.data.ticker}
                 name={stock.data.ticker}
                 openPrice={stock.info.o}
-                shares={stock.data.shares}
                 price={stock.info.c}
+                shares={stock.data.shares}
               />
             ))}
           </div>
         </div>
-        <div className="stats__header stats-lists">
+        <div className='stats__header stats-lists'>
           <p>Lists</p>
         </div>
-        <div className="stats__content">
-          <div className="stats__rows">
+        <div className='stats__content'>
+          <div className='stats__rows'>
             {/* stocks we can buy */}
-            {stockData.map((stock) => (
+            {stockData.map(stock => (
               <StatsRow
                 key={stock.name}
                 name={stock.name}

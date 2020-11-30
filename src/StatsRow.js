@@ -1,47 +1,51 @@
-import React from "react";
-import './StatsRow.css'
-import StockSVG from './stock.svg'
-import { db } from "./firebase";
+// https://github.com/lxndroc/react-robinhood-clone
 
-function StatsRow(props) {
+import React from 'react';
+import './StatsRow.css';
+import StockSVG from './stock.svg';
+import { db } from './firebase';
+
+function StatsRow({ name, openPrice, price, shares = 0 }) {
   // console.log("Props: ", props);
-  // % = (currentPrice - openPrice)/openPrice * 100
-  const percentage = ((props.price - props.openPrice)/props.openPrice) * 100;
+  const percentage = ((price - openPrice) / openPrice) * 100;
   const buyStock = () => {
-    console.log('log', props.name);
-    db.collection('myStocks').where('ticker', '==', props.name)
-    .get()
-    .then(querySnapshot => {
-        if(!querySnapshot.empty) {
+    console.log('log', name);
+    db.collection('myStocks')
+      .where('ticker', '==', name)
+      .get()
+      .then(querySnapshot => {
+        if (!querySnapshot.empty) {
           //update the record
-          querySnapshot.forEach(function(doc) {
-            db.collection('myStocks').doc(doc.id).update({
-              shares: doc.data().shares += 1
-            })
+          querySnapshot.forEach(doc => {
+            db.collection('myStocks')
+              .doc(doc.id)
+              .update({
+                shares: (doc.data().shares += 1),
+              });
             // console.log(doc.id, ' => ', doc.data());
           });
         }
+        // add a new record
         else
-          // add a new record
           db.collection('myStocks').add({
-            ticker: props.name,
-            shares: 1
-          })
-    })
-  }
+            ticker: name,
+            shares: 1,
+          });
+      });
+  };
 
   return (
-    <div className="row">
-      <div className="row__intro">
-        <h1>{props?.name}</h1>
-        <p>{props.shares && (props.shares + " shares")}</p>
+    <div className='statsrow'>
+      <div className='statsrow__intro'>
+        <h1>{name}</h1>
+        <p>{shares && shares + ' shares'}</p>
       </div>
-      <div className="row__chart">
-        <img src={StockSVG} height={16}/>
+      <div className='statsrow__chart'>
+        <img src={StockSVG} height={16} />
       </div>
-      <div className="row__numbers">
-        <p className="row__price">{props.price}</p>
-        <p className="row__percentage"> +{Number(percentage).toFixed(2)}%</p>
+      <div className='statsrow__numbers'>
+        <p className='statsrow__price'>{price}</p>
+        <p className='statsrow__percentage'> +{Number(percentage).toFixed(2)}%</p>
       </div>
     </div>
   );
