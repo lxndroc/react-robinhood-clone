@@ -1,6 +1,6 @@
 <h1 align="center">+ Robinhood Clone v2020-11 +</h1>
 <p align="center">
-<h3 align='center'>Displays part of the <a href="https://robinhood.com/us/en/">Robinhood</a> UI with limited functionality</h3>
+<h3 align='center'>Displays part of the <a href="https://robinhood.com/us/en/">Robinhood</a> UI with similar functionality</h3>
 </p>
   <p align="center">⭐️ & 🔱</p>
   <p align="center">
