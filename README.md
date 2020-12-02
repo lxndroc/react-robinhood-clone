@@ -47,8 +47,8 @@
 
 ## Installation - On Laptop
 1. Install [Node.js](https://nodejs.org/en/)</a>
-2. Install [Material-UI](https://material-ui.com/) core & icons, [Chart.js](https://www.chartjs.org/) & its React interface, & [axios](https://github.com/axios/axios) to the node modules of the app with `npm`<br>
-  Run `npm i @material-ui/core @material-ui/icons chart.js react-chartjs-2 axios`
+2. Install [Firebase](https://firebase.google.com/), [Material-UI](https://material-ui.com/) core & icons, [Chart.js](https://www.chartjs.org/) & its React interface, & [axios](https://github.com/axios/axios) to the node modules of the app with `npm`<br>
+  Run `npm i firebase @material-ui/icons react-chartjs-2 axios`
 3. Create the React app template with `npx` using robinhood-clone as name<br>
   Run `npx create-react-app robinhood-clone`<br>
 4. Move to the created app folder robinhood-clone<br>
